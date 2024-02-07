@@ -21,7 +21,7 @@ public class Car {
 	@Column(name = "color")
 	private String color;
 
-	@Transient
+	@Column(name = "groupCar")
 	private RentalGroup group;
 
 	@Column(name = "available")

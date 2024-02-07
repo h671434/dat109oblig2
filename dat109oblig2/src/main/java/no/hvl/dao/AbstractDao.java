@@ -86,6 +86,8 @@ public abstract class AbstractDao<T> {
         }
     }
 
+
+
     /**
      * Reads all entities of the given type from the database.
      *
