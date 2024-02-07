@@ -1,8 +1,10 @@
-import no.hvl.dat109.oblig2.RentalOffice;
-import no.hvl.dat109.oblig2.ReservationFilter;
+import entities.RentalOffice;
+import entities.ReservationFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+
+import java.util.Date;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class TestReservationFilter {
@@ -24,12 +26,27 @@ public class TestReservationFilter {
                 "12312124",
                 StaticTestObjs.cars.subList(6,10));
 
-        reservationFilter1 = new ReservationFilter()
+        reservationFilter1 = new ReservationFilter(pickupOffice, returnOffice, new Date(), 5);
+        reservationFilter2 = new ReservationFilter(returnOffice, pickupOffice, new Date(), 10);
 
     }
 
 
     @Test
+    void testFindWrongCar(){
+
+    }
+
+    @Test
+    void testFindRightCar(){
+
+    }
+
+    @Test
+    void testOfficeNoCars(){
+
+    }
+
 
 
 }

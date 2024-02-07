@@ -1,4 +1,4 @@
-package no.hvl.dat109.oblig2;
+package entities;
 
 import java.util.Date;
 import java.util.Objects;

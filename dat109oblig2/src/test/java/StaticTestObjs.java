@@ -1,7 +1,7 @@
-import no.hvl.dat109.oblig2.Address;
-import no.hvl.dat109.oblig2.Car;
-import no.hvl.dat109.oblig2.Costumer;
-import no.hvl.dat109.oblig2.RentalGroup;
+import entities.Address;
+import entities.Car;
+import entities.Costumer;
+import entities.RentalGroup;
 
 import java.util.Arrays;
 import java.util.List;
