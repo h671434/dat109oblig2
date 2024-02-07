@@ -13,7 +13,7 @@ public class ReservationFilter {
 	private Date pickupTime;
 	private int rentalDays;
 	
-	public ReservationFilter(Costumer costumer, RentalOffice pickupOffice, RentalOffice returnOffice, Date pickupTime,
+	public ReservationFilter(RentalOffice pickupOffice, RentalOffice returnOffice, Date pickupTime,
 			int rentalDays) {
 		this.pickupOffice = pickupOffice;
 		this.returnOffice = returnOffice;
