@@ -1,5 +1,7 @@
-import entities.RentalOffice;
-import entities.ReservationFilter;
+
+
+import no.hvl.entities.RentalOffice;
+import no.hvl.entities.ReservationFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

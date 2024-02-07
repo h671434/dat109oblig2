@@ -1,7 +1,7 @@
-import entities.Address;
-import entities.Car;
-import entities.Costumer;
-import entities.RentalGroup;
+import no.hvl.entities.Address;
+import no.hvl.entities.Car;
+import no.hvl.entities.Costumer;
+import no.hvl.entities.RentalGroup;
 
 import java.util.Arrays;
 import java.util.List;

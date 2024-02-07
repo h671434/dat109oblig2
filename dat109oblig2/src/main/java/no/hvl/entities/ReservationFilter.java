@@ -1,4 +1,4 @@
-package entities;
+package no.hvl.entities;
 
 import java.util.Date;
 import java.util.Objects;

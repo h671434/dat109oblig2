@@ -1,4 +1,4 @@
-package entities;
+package no.hvl.entities;
 
 public enum RentalGroup {
 	
