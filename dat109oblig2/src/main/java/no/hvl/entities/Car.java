@@ -1,14 +1,30 @@
 package no.hvl.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "car", schema = "dat109_oblig2")
 public class Car {
 
+	@Id
+	@Column(name = "registrationNr")
 	private String registrationNr;
+
+	@Column(name = "brand")
 	private String brand;
+
+	@Column(name = "model")
 	private String model;
+
+	@Column(name = "color")
 	private String color;
+
+	@Transient
 	private RentalGroup group;
+
+	@Column(name = "available")
 	private boolean available;
 	
 	public Car(String registrationNr, String brand, String model, String color, RentalGroup group, boolean available) {
@@ -18,6 +34,10 @@ public class Car {
 		this.color = color;
 		this.group = group;
 		this.available = available;
+	}
+
+	public Car() {
+
 	}
 
 	public String getRegistrationNr() {
