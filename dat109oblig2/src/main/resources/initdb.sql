@@ -29,13 +29,7 @@ create table car(
     model varchar(30),
     color varchar(30),
     groupCar varchar(30),
-    availibe bool
-
-);
-
-
-
-create table rentalOrder(
+    available boolean
 
 );
 

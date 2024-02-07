@@ -29,7 +29,7 @@ public class TestCar {
 
     @Test
     void testSave(){
-        Car car = new Car("BS49404", "VW", "Golf", "blue", RentalGroup.A, true);
+        Car car = StaticTestObjs.cars.getFirst();
         carDao.writeEntity(car);
         //System.out.println(StaticTestObjs.adresses);
         //carDao.writeEntity(car1);
