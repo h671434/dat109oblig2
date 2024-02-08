@@ -7,6 +7,7 @@ public class RentalCompany {
 	private String name;
 	private String phone;
 	private Address companyAddress;
+	private List<rentalOffice> officeList;
 	
 	public RentalCompany(String name, String phone, Address companyAddress) {
 		this.name = name;
