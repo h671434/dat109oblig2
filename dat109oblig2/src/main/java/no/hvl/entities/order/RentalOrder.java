@@ -1,11 +1,15 @@
-package no.hvl.entities;
+package no.hvl.entities.order;
 
 import java.util.Date;
 import java.util.Objects;
 
+
+/**
+ * DEPRECIATED
+ */
 public class RentalOrder {
 
-	private String customerCreditCardNr;
+	private String costumerPhone;
 	private String carRegistrationNr;
 
 	private Date pickupTime;
@@ -14,25 +18,34 @@ public class RentalOrder {
 	
 	private int pickupMileageInKm;
 	private int returnMileageInKm;
+
 	
 	/**
 	 * Constructor with all fields, except returnTime and returnMileage.
 	 */
-	public RentalOrder(String customerCreditCardNr, String carRegistrationNr, Date pickupTime,
+	public RentalOrder(String costumerPhone, String carRegistrationNr, Date pickupTime,
 			Date expectedReturnTime, int pickupMileageInKm) {
-		this.customerCreditCardNr = customerCreditCardNr;
+		this.costumerPhone = costumerPhone;
 		this.carRegistrationNr = carRegistrationNr;
 		this.pickupTime = pickupTime;
 		this.expectedReturnTime = expectedReturnTime;
 		this.pickupMileageInKm = pickupMileageInKm;
 	}
 
-	public String getCustomerCreditCardNr() {
-		return customerCreditCardNr;
+	public String getCostumerPhone() {
+		return costumerPhone;
 	}
 
-	public void setCustomerCreditCardNr(String customerCreditCardNr) {
-		this.customerCreditCardNr = customerCreditCardNr;
+	public void setCostumerPhone(String costumerPhone) {
+		this.costumerPhone = costumerPhone;
+	}
+
+	public int getReturnMileageInKm() {
+		return returnMileageInKm;
+	}
+
+	public void setReturnMileageInKm(int returnMileageInKm) {
+		this.returnMileageInKm = returnMileageInKm;
 	}
 
 	public String getCarRegistrationNr() {
@@ -85,7 +98,7 @@ public class RentalOrder {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(carRegistrationNr, customerCreditCardNr, expectedReturnTime, pickupMileageInKm, pickupTime,
+		return Objects.hash(carRegistrationNr, costumerPhone, expectedReturnTime, pickupMileageInKm, pickupTime,
 				returnMileageInKm, returnTime);
 	}
 
@@ -101,7 +114,7 @@ public class RentalOrder {
 		RentalOrder other = (RentalOrder) obj;
 		
 		return Objects.equals(carRegistrationNr, other.carRegistrationNr)
-				&& Objects.equals(customerCreditCardNr, other.customerCreditCardNr)
+				&& Objects.equals(costumerPhone, other.costumerPhone)
 				&& Objects.equals(expectedReturnTime, other.expectedReturnTime)
 				&& pickupMileageInKm == other.pickupMileageInKm 
 				&& Objects.equals(pickupTime, other.pickupTime)
@@ -109,9 +122,9 @@ public class RentalOrder {
 				&& Objects.equals(returnTime, other.returnTime);
 	}
 
-	public RentalOrder(String customerCreditCardNr, String carRegistrationNr, Date pickupTime, Date expectedReturnTime,
+	public RentalOrder(String costumerPhone, String carRegistrationNr, Date pickupTime, Date expectedReturnTime,
 			Date returnTime, int pickupMileageInKm, int returnMilageInKm) {
-		this.customerCreditCardNr = customerCreditCardNr;
+		this.costumerPhone = costumerPhone;
 		this.carRegistrationNr = carRegistrationNr;
 		this.pickupTime = pickupTime;
 		this.expectedReturnTime = expectedReturnTime;

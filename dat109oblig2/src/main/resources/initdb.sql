@@ -27,22 +27,26 @@ create table costumer(
 );
 
 create table rentalCompany(
-    name varchar(55) ,
+    name varchar(55) primary key,
     phone varchar(9),
     companyAddress varchar(55) references address(streetAddress)
 );
 
 create table rentalOffice(
-    address varchar(55) references address(streetAddress)
+    address varchar(55) references address(streetAddress),
     phone char(8),
     rentalCompany varchar(55) references rentalCompany(name)
 );
 
 create table rentalOrder(
-
+    costumerPhone varchar(9), --should be changed to payment
+    carRegistrationNr varchar(8),
+    pickupTime Date,
+    expectedReturnTime Date,
+    PRIMARY KEY (carRegistrationNr, costumerPhone),
+    FOREIGN KEY (costumerPhone) REFERENCES costumer(costumerPhone)
 );
 
+create table rentalOrderHistory(
 
-
-
-
+);
