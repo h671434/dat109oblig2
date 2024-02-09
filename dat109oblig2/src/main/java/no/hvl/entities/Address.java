@@ -1,17 +1,35 @@
 package no.hvl.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "address", schema = "dat109_oblig2")
 public class Address {
 
+	@Id
+	@Column(name = "streetaddress")
 	private String streetAddress;
+
+	@Column(name = "postcode")
 	private String postcode;
+
+	@Column(name = "postalArea")
 	private String postalArea;
-	
+
+
 	public Address(String streetAddress, String postcode, String postalArea) {
 		this.streetAddress = streetAddress;
 		this.postcode = postcode;
 		this.postalArea = postalArea;
+	}
+
+	public Address() {
+
 	}
 
 	public String getStreetAddress() {

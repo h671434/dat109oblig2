@@ -3,8 +3,15 @@ package no.hvl.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
-public abstract class AbstractDao<T> {
+
+/**
+ * @author leo
+ * @param <T> class that is entity
+ */
+public abstract class AbstractDAO<T> {
 
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PERSISTENCE");
 
@@ -23,6 +30,39 @@ public abstract class AbstractDao<T> {
             entityManager.close();
         }
     }
+
+    protected abstract Class<T> getEntityClass();
+
+    /**
+     *
+     * @param id primary key of entity
+     * @return whole entity of the object
+     */
+    public T getById(String id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            return entityManager.find(getEntityClass(), id);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     *
+     * @return all entries in database as list of entities
+     */
+    public List<T> getAll() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            String jpql = "SELECT e FROM " + getEntityClass().getSimpleName() + " e";
+            TypedQuery<T> query = entityManager.createQuery(jpql, getEntityClass());
+            return query.getResultList();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+
 
     /**
      * Deletes an entity from the database.
@@ -59,11 +99,11 @@ public abstract class AbstractDao<T> {
     /**
      * Deletes all entities of the given type from the database.
      */
-    public void deleteAllEntities(Class<T> entityClass) {
+    public void deleteAllEntities() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            entityManager.createQuery("DELETE FROM " + entityClass.getSimpleName()).executeUpdate();
+            entityManager.createQuery("DELETE FROM " + getEntityClass().getSimpleName()).executeUpdate();
             entityManager.getTransaction().commit();
         } finally {
             entityManager.close();
@@ -85,17 +125,6 @@ public abstract class AbstractDao<T> {
             entityManager.close();
         }
     }
-
-
-
-    /**
-     * Reads all entities of the given type from the database.
-     *
-     * @param entityClass Class of the entity.
-     * @return List of entities.
-     */
-    public abstract Iterable<T> readAllEntities(Class<T> entityClass);
-
 
 
 }

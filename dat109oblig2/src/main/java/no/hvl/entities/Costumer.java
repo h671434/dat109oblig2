@@ -1,12 +1,25 @@
 package no.hvl.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "costumer", schema = "dat109_oblig2")
 public class Costumer {
 
+	@Column(name = "firstName")
 	private String firstName;
+
+	@Column(name = "lastName")
 	private String lastName;
+
+	@OneToOne
+	@JoinColumn(name = "address", referencedColumnName = "streetAddress")
 	private Address address;
+
+	@Id
+	@Column(name = "phone")
 	private String phone;
 	
 	public Costumer(String firstName, String lastName, Address address, String phone) {
@@ -14,6 +27,10 @@ public class Costumer {
 		this.lastName = lastName;
 		this.address = address;
 		this.phone = phone;
+	}
+
+	public Costumer() {
+
 	}
 
 	public String getFirstName() {

@@ -1,12 +1,12 @@
 package no.hvl;
 
-import no.hvl.dao.CarDao;
+import no.hvl.dao.CarDAO;
 
 public class Main {
     public static void main(String[] wasdf){
         System.out.println("hello world");
 
-        CarDao carDao = new CarDao();
+        CarDAO carDao = new CarDAO();
 
 
     }

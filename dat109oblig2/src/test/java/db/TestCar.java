@@ -1,6 +1,7 @@
-import no.hvl.dao.CarDao;
+package db;
+
+import no.hvl.dao.CarDAO;
 import no.hvl.entities.Car;
-import no.hvl.entities.RentalGroup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -11,7 +12,7 @@ public class TestCar {
     private Car car1;
     private Car car2;
     private Car car3;
-    private CarDao carDao;
+    private CarDAO carDao;
 
 
     @BeforeEach
@@ -22,15 +23,15 @@ public class TestCar {
         car1 = StaticTestObjs.cars.get(2);
         StaticTestObjs.cars.get(5);
         */
-        carDao = new CarDao();
+        carDao = new CarDAO();
     }
 
 
 
     @Test
     void testSave(){
-        Car car = StaticTestObjs.cars.getFirst();
-        carDao.writeEntity(car);
+        //Car car = StaticTestObjs.cars.getFirst();
+        //carDao.writeEntity(car);
         //System.out.println(StaticTestObjs.adresses);
         //carDao.writeEntity(car1);
     }

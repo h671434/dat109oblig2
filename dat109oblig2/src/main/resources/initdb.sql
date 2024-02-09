@@ -29,7 +29,7 @@ create table costumer(
 create table rentalCompany(
     name varchar(55) primary key,
     phone varchar(9),
-    companyAddress varchar(55) references address(streetAddress)
+    companyAddress varchar(55) references address(streetAddress),
 );
 
 create table rentalOffice(
@@ -44,7 +44,8 @@ create table rentalOrder(
     pickupTime Date,
     expectedReturnTime Date,
     PRIMARY KEY (carRegistrationNr, costumerPhone),
-    FOREIGN KEY (costumerPhone) REFERENCES costumer(costumerPhone)
+    FOREIGN KEY (costumerPhone) REFERENCES costumer(costumerPhone),
+    FOREIGN KEY (carRegistrationNr) REFERENCES car(carRegistrationNr),
 );
 
 create table rentalOrderHistory(

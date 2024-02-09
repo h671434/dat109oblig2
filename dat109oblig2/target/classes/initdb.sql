@@ -4,23 +4,9 @@ create schema dat109_oblig2;
 set search_path to dat109_oblig2;
 
 create table address(
-
-);
-
-create table costumer(
-
-);
-
-create table rentalCompany(
-
-);
-
-create table rentalOffice(
-
-);
-
-create table rentalOrder(
-
+    streetAddress varchar(55) primary key,
+    postcode char(4),
+    postalArea varchar(55)
 );
 
 create table car(
@@ -33,5 +19,34 @@ create table car(
 
 );
 
+create table costumer(
+    firstName varchar(55),
+    lastName varchar(55),
+    address varchar(55) references address(streetAddress),
+    phone char(8) primary key
+);
 
+create table rentalCompany(
+    name varchar(55) primary key,
+    phone varchar(9),
+    companyAddress varchar(55) references address(streetAddress)
+);
 
+create table rentalOffice(
+    address varchar(55) references address(streetAddress),
+    phone char(8),
+    rentalCompany varchar(55) references rentalCompany(name)
+);
+
+create table rentalOrder(
+    costumerPhone varchar(9), --should be changed to payment
+    carRegistrationNr varchar(8),
+    pickupTime Date,
+    expectedReturnTime Date,
+    PRIMARY KEY (carRegistrationNr, costumerPhone),
+    FOREIGN KEY (costumerPhone) REFERENCES costumer(costumerPhone)
+);
+
+create table rentalOrderHistory(
+
+);

@@ -1,18 +1,36 @@
 package no.hvl.entities;
 
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "RentalCompany", schema = "dat109_oblig2")
 public class RentalCompany {
 
+	@Id
+	@Column(name = "name")
 	private String name;
+
+	@Column(name = "phone")
 	private String phone;
+
+	@OneToOne
+	@JoinColumn(name = "address", referencedColumnName = "streetAddress")
 	private Address companyAddress;
-	private List<rentalOffice> officeList;
+
+	@ManyToOne
+	private List<RentalOffice> officeList;
 	
 	public RentalCompany(String name, String phone, Address companyAddress) {
 		this.name = name;
 		this.phone = phone;
 		this.companyAddress = companyAddress;
+	}
+
+	public RentalCompany() {
+
 	}
 
 	public String getName() {
