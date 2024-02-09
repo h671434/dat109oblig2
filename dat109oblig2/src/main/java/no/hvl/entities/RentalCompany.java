@@ -20,7 +20,7 @@ public class RentalCompany {
 	@JoinColumn(name = "address", referencedColumnName = "streetAddress")
 	private Address companyAddress;
 
-	@ManyToOne
+	@OneToMany(mappedBy = "rentalCompany")
 	private List<RentalOffice> officeList;
 	
 	public RentalCompany(String name, String phone, Address companyAddress) {

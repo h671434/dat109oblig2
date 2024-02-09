@@ -1,53 +1,77 @@
-drop schema if exists dat109_oblig2 cascade;
-create schema dat109_oblig2;
+-- Drop schema if exists and create schema
+DROP SCHEMA IF EXISTS dat109_oblig2 CASCADE;
+CREATE SCHEMA dat109_oblig2;
 
-set search_path to dat109_oblig2;
+-- Set search path to the new schema
+SET search_path TO dat109_oblig2;
 
-create table address(
-    streetAddress varchar(55) primary key,
-    postcode char(4),
-    postalArea varchar(55)
+-- Create the Address table
+CREATE TABLE address (
+    streetAddress VARCHAR(55) PRIMARY KEY,
+    postcode CHAR(4),
+    postalArea VARCHAR(55)
 );
 
-create table car(
-    registrationNr varchar(8) primary key,
-    brand varchar(30),
-    model varchar(30),
-    color varchar(30),
-    groupCar varchar(30),
-    available boolean
-
+-- Create the Costumer table
+CREATE TABLE costumer (
+    firstName VARCHAR(55),
+    lastName VARCHAR(55),
+    address VARCHAR(55) REFERENCES address(streetAddress),
+    phone CHAR(8) PRIMARY KEY
 );
 
-create table costumer(
-    firstName varchar(55),
-    lastName varchar(55),
-    address varchar(55) references address(streetAddress),
-    phone char(8) primary key
+-- Create the RentalCompany table
+CREATE TABLE rentalCompany (
+    name VARCHAR(55) PRIMARY KEY,
+    phone VARCHAR(9),
+    companyAddress VARCHAR(55) REFERENCES address(streetAddress)
 );
 
-create table rentalCompany(
-    name varchar(55) primary key,
-    phone varchar(9),
-    companyAddress varchar(55) references address(streetAddress),
+-- Create the RentalOffice table
+CREATE TABLE rentalOffice (
+    address VARCHAR(55) REFERENCES address(streetAddress),
+    phone CHAR(8) PRIMARY KEY,
+    rentalCompany VARCHAR(55) REFERENCES rentalCompany(name)
 );
 
-create table rentalOffice(
-    address varchar(55) references address(streetAddress),
-    phone char(8),
-    rentalCompany varchar(55) references rentalCompany(name)
+-- Create the Car table
+CREATE TABLE car (
+    registrationNr VARCHAR(8) PRIMARY KEY,
+    brand VARCHAR(30),
+    model VARCHAR(30),
+    color VARCHAR(30),
+    groupCar VARCHAR(30),
+    available BOOLEAN,
+    rentalOffice CHAR(8) REFERENCES rentalOffice(phone)
 );
 
-create table rentalOrder(
-    costumerPhone varchar(9), --should be changed to payment
-    carRegistrationNr varchar(8),
-    pickupTime Date,
-    expectedReturnTime Date,
-    PRIMARY KEY (carRegistrationNr, costumerPhone),
-    FOREIGN KEY (costumerPhone) REFERENCES costumer(costumerPhone),
-    FOREIGN KEY (carRegistrationNr) REFERENCES car(carRegistrationNr),
+-- Create the RentalOrder table
+CREATE TABLE rentalOrder (
+    costumerPhone VARCHAR(9), -- should be changed to payment
+    carRegistrationNr VARCHAR(8),
+    pickupTime DATE,
+    expectedReturnTime DATE,
+    PRIMARY KEY (carRegistrationNr, costumerPhone)
 );
 
-create table rentalOrderHistory(
+-- Add foreign key constraints for RentalOrder table
+ALTER TABLE rentalOrder
+    ADD CONSTRAINT fk_costumer
+    FOREIGN KEY (costumerPhone) REFERENCES costumer(phone);
 
+ALTER TABLE rentalOrder
+    ADD CONSTRAINT fk_car
+    FOREIGN KEY (carRegistrationNr) REFERENCES car(registrationNr);
+
+-- Create the RentalOrderHistory table
+CREATE TABLE rentalOrderHistory (
+    -- Define columns as needed
 );
+
+-- Add other constraints or indexes as needed
+
+
+
+
+
+

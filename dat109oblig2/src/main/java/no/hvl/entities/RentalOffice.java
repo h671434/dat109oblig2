@@ -1,18 +1,39 @@
 package no.hvl.entities;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "rentalOffice")
 public class RentalOffice {
 
+
+	@OneToOne
+	@JoinColumn(name = "address", referencedColumnName = "streetAddress")
 	private Address address;
+
+	@Id
+	@Column(name = "phone")
 	private String phone;
+
+	@OneToMany(mappedBy = "rentalOffice")
 	private List<Car> cars;
+
+
+	@ManyToOne
+	@JoinColumn(name = "rentalCompany", referencedColumnName = "name")
+	private RentalCompany rentalCompany;
 	
 	public RentalOffice(Address address, String phone, List<Car> cars) {
 		this.address = address;
 		this.phone = phone;
 		this.cars = cars;
+	}
+
+	public RentalOffice() {
+
 	}
 
 	public Address getAddress() {

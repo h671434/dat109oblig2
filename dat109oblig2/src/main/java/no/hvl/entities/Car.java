@@ -26,6 +26,11 @@ public class Car {
 
 	@Column(name = "available")
 	private boolean available;
+
+	@ManyToOne
+	@JoinColumn(name = "rentalOffice")
+	private RentalOffice rentalOffice;
+
 	
 	public Car(String registrationNr, String brand, String model, String color, RentalGroup group, boolean available) {
 		this.registrationNr = registrationNr;
