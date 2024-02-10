@@ -4,7 +4,7 @@ import no.hvl.entities.order.payment.Payment;
 
 import java.util.Date;
 
-public class OldOrder extends Order {
+public class FinishedOrder extends Order {
 
     private Date returnTime;
 
@@ -12,13 +12,13 @@ public class OldOrder extends Order {
 
     private Integer price;
 
-    public OldOrder(String costumerPhone, String carRegistrationNr, Date pickupTime, Date expectedReturnTime, int pickupMileageInKm, Payment payment, Date returnTime, int returnMileageInKm) {
+    public FinishedOrder(String costumerPhone, String carRegistrationNr, Date pickupTime, Date expectedReturnTime, int pickupMileageInKm, Payment payment, Date returnTime, int returnMileageInKm) {
         super(costumerPhone, carRegistrationNr, pickupTime, expectedReturnTime, pickupMileageInKm, payment);
         this.returnTime = returnTime;
         this.returnMileageInKm = returnMileageInKm;
     }
 
-    public OldOrder(Date returnTime, int returnMileageInKm) {
+    public FinishedOrder(Date returnTime, int returnMileageInKm) {
         this.returnTime = returnTime;
         this.returnMileageInKm = returnMileageInKm;
     }

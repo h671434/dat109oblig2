@@ -1,10 +1,12 @@
 package no.hvl.entities.order;
 
+import no.hvl.entities.RentalOffice;
 import no.hvl.entities.order.payment.Payment;
 
 import java.util.Date;
 
 public abstract class Order {
+	
     private String costumerPhone;
     private String carRegistrationNr;
 
@@ -24,6 +26,10 @@ public abstract class Order {
         this.expectedReturnTime = expectedReturnTime;
         this.pickupMileageInKm = pickupMileageInKm;
         this.payment = payment;
+    }
+    
+    public boolean isExpectedReturnedBy(Date time) {
+    	return expectedReturnTime.before(time);
     }
 
     public String getCostumerPhone() {

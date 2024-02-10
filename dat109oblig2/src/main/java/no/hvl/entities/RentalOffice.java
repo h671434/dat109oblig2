@@ -1,9 +1,13 @@
 package no.hvl.entities;
 
 import javax.persistence.*;
+
+import no.hvl.entities.order.Reservation;
+import no.hvl.services.ReservationInfo;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 
 @Entity
 @Table(name = "rentalOffice")
@@ -21,7 +25,6 @@ public class RentalOffice {
 	@OneToMany(mappedBy = "rentalOffice")
 	private List<Car> cars;
 
-
 	@ManyToOne
 	@JoinColumn(name = "rentalCompany", referencedColumnName = "name")
 	private RentalCompany rentalCompany;
@@ -36,6 +39,10 @@ public class RentalOffice {
 
 	}
 
+	public List<Car> getAvailableCars() {
+		return cars.stream().filter(Car::isAvailable).toList();
+	}
+	
 	public Address getAddress() {
 		return address;
 	}

@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class ActiveOrder extends Order {
 
-    public OldOrder changeStatusToFinished(Date returnTime, int returnMilageInKm){
+    public FinishedOrder changeStatusToFinished(Date returnTime, int returnMilageInKm){
 
-        return new OldOrder(
+        return new FinishedOrder(
                 this.getCostumerPhone(),
                 this.getCarRegistrationNr(),
             this.getPickupTime(),

@@ -31,7 +31,6 @@ public class Car {
 	@JoinColumn(name = "rentalOffice")
 	private RentalOffice rentalOffice;
 
-	
 	public Car(String registrationNr, String brand, String model, String color, RentalGroup group, boolean available) {
 		this.registrationNr = registrationNr;
 		this.brand = brand;
