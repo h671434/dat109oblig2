@@ -30,6 +30,8 @@ public class Car {
 	@ManyToOne
 	@JoinColumn(name = "rentalOffice")
 	private RentalOffice rentalOffice;
+	
+	private int mileageInKm;
 
 	public Car(String registrationNr, String brand, String model, String color, RentalGroup group, boolean available) {
 		this.registrationNr = registrationNr;
@@ -42,6 +44,14 @@ public class Car {
 
 	public Car() {
 
+	}
+	
+	public int getMileageInKm() {
+		return mileageInKm;
+	}
+	
+	public void setMileageInKm(int mileageInKm) {
+		this.mileageInKm = mileageInKm;
 	}
 
 	public String getRegistrationNr() {
