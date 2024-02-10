@@ -64,6 +64,8 @@ public class OrderService {
 		orderDao.deleteEntity(active);
 		orderDao.writeEntity(finished);
 		
+		carDao.getById(active.getCarRegistrationNr()).setAvailable(true);
+		
 		return finished;
 	}
 
