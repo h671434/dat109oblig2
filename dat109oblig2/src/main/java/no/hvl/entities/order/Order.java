@@ -1,14 +1,31 @@
 package no.hvl.entities.order;
 
+import no.hvl.entities.Car;
+import no.hvl.entities.Costumer;
 import no.hvl.entities.RentalOffice;
 import no.hvl.entities.order.payment.Payment;
 
+import javax.persistence.*;
 import java.util.Date;
 
+
+@MappedSuperclass
 public abstract class Order {
-	
-    private String costumerPhone;
-    private String carRegistrationNr;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int orderId;
+
+    @ManyToOne
+    @JoinColumn(name = "costumerPhone", referencedColumnName = "phone")
+    private Costumer costumer;
+
+
+    @ManyToOne
+    @JoinColumn(name = "registrationNr", referencedColumnName = "registrationNr")
+    private Car car;
+
+    @Column(name = "")
 
     private Date pickupTime;
     private Date expectedReturnTime;
@@ -16,6 +33,8 @@ public abstract class Order {
     private int pickupMileageInKm;
 
     private Payment payment;
+
+
 
     public Order(){}
 
@@ -27,7 +46,15 @@ public abstract class Order {
         this.pickupMileageInKm = pickupMileageInKm;
         this.payment = payment;
     }
-    
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
     public boolean isExpectedReturnedBy(Date time) {
     	return expectedReturnTime.before(time);
     }

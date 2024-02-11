@@ -2,6 +2,7 @@ package db;
 
 import no.hvl.dao.CarDAO;
 import no.hvl.entities.Car;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -39,6 +40,11 @@ public class TestCar {
     @Test
     void testLoad(){
 
+    }
+
+    @AfterAll
+    void removeTestEntities(){
+        carDao.deleteAllEntities();
     }
 
 
