@@ -25,22 +25,27 @@ public abstract class Order {
     @JoinColumn(name = "registrationNr", referencedColumnName = "registrationNr")
     private Car car;
 
-    @Column(name = "")
+    @Column(name = "pickUpTime")
 
     private Date pickupTime;
+
+    @Column(name = "expectedReturnTime")
     private Date expectedReturnTime;
 
+
+    @Column(name = "pickupMilageInKm")
     private int pickupMileageInKm;
 
+    @Transient
     private Payment payment;
 
 
 
     public Order(){}
 
-    public Order(String costumerPhone, String carRegistrationNr, Date pickupTime, Date expectedReturnTime, int pickupMileageInKm, Payment payment) {
-        this.costumerPhone = costumerPhone;
-        this.carRegistrationNr = carRegistrationNr;
+    public Order(Costumer costumer, Car car, Date pickupTime, Date expectedReturnTime, int pickupMileageInKm, Payment payment) {
+        this.costumer = costumer;
+        this.car = car;
         this.pickupTime = pickupTime;
         this.expectedReturnTime = expectedReturnTime;
         this.pickupMileageInKm = pickupMileageInKm;
@@ -59,20 +64,21 @@ public abstract class Order {
     	return expectedReturnTime.before(time);
     }
 
-    public String getCostumerPhone() {
-        return costumerPhone;
+
+    public Costumer getCostumer() {
+        return costumer;
     }
 
-    public void setCostumerPhone(String costumerPhone) {
-        this.costumerPhone = costumerPhone;
+    public void setCostumer(Costumer costumer) {
+        this.costumer = costumer;
     }
 
-    public String getCarRegistrationNr() {
-        return carRegistrationNr;
+    public Car getCar() {
+        return car;
     }
 
-    public void setCarRegistrationNr(String carRegistrationNr) {
-        this.carRegistrationNr = carRegistrationNr;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public Date getPickupTime() {

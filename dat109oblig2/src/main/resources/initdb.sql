@@ -46,32 +46,37 @@ CREATE TABLE car (
 );
 
 -- Create the RentalOrder table
-CREATE TABLE rentalOrder (
+CREATE TABLE activeOrder (
+    orderId serial primary key,
     costumerPhone VARCHAR(9), -- should be changed to payment
     carRegistrationNr VARCHAR(8),
     pickupTime DATE,
-    expectedReturnTime DATE,
-    PRIMARY KEY (carRegistrationNr, costumerPhone)
+    expectedReturnTime DATE
 );
 
 -- Add foreign key constraints for RentalOrder table
-ALTER TABLE rentalOrder
+ALTER TABLE activeOrder
     ADD CONSTRAINT fk_costumer
     FOREIGN KEY (costumerPhone) REFERENCES costumer(phone);
 
-ALTER TABLE rentalOrder
+ALTER TABLE activeOrder
     ADD CONSTRAINT fk_car
     FOREIGN KEY (carRegistrationNr) REFERENCES car(registrationNr);
 
 -- Create the RentalOrderHistory table
-CREATE TABLE rentalOrderHistory (
+CREATE TABLE finishedOrder (
     -- Define columns as needed
+    orderId SERIAL PRIMARY KEY,
+    costumerPhone VARCHAR(9) references costumer(phone),
+    carRegistrationNr VARCHAR(8) references car(registrationNr),
+    pickupTime DATE,
+    expectedReturnTime DATE,
+    returnTime date,
+    returnMilageInKm integer,
+    price integer
 );
 
+
 -- Add other constraints or indexes as needed
-
-
-
-
 
 
