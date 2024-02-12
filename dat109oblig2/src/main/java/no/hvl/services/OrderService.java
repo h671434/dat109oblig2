@@ -44,8 +44,8 @@ public class OrderService {
 		
 		ActiveOrder order = new ActiveOrder();
 		
-		order.setCarRegistrationNr(car.getRegistrationNr());
-		order.setCostumerPhone(costumer.getPhone());
+		order.setCar(car);
+		order.setCostumer(costumer);
 		order.setPickupTime(pickupTime);
 		order.setExpectedReturnTime(expectedReturnTime);
 		order.setPayment(payment);
@@ -64,7 +64,7 @@ public class OrderService {
 		orderDao.deleteEntity(active);
 		orderDao.writeEntity(finished);
 		
-		carDao.getById(active.getCarRegistrationNr()).setAvailable(true);
+		carDao.getById(active.getCar().getRegistrationNr()).setAvailable(true);
 		
 		return finished;
 	}

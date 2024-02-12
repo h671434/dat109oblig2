@@ -2,8 +2,6 @@ package no.hvl.entities;
 
 import javax.persistence.*;
 
-import no.hvl.entities.order.Reservation;
-import no.hvl.services.ReservationInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +23,7 @@ public class RentalOffice {
 	@OneToMany(mappedBy = "rentalOffice")
 	private List<Car> cars;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "rentalCompany", referencedColumnName = "name")
 	private RentalCompany rentalCompany;
 	

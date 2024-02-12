@@ -14,7 +14,7 @@ public class Costumer {
 	@Column(name = "lastName")
 	private String lastName;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "address", referencedColumnName = "streetAddress")
 	private Address address;
 

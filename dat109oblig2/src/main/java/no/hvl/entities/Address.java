@@ -57,24 +57,18 @@ public class Address {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(postalArea, postcode, streetAddress);
-	}
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Address address = (Address) o;
+
+        return Objects.equals(streetAddress, address.streetAddress);
+    }
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		
-		Address other = (Address) obj;
-		
-		return Objects.equals(postalArea, other.postalArea)
-				&& Objects.equals(postcode, other.postcode)
-				&& Objects.equals(streetAddress, other.streetAddress);
+	public int hashCode() {
+		return streetAddress != null ? streetAddress.hashCode() : 0;
 	}
 
 	@Override

@@ -21,17 +21,30 @@ public class Car {
 	@Column(name = "color")
 	private String color;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "groupCar")
 	private RentalGroup group;
 
 	@Column(name = "available")
 	private boolean available;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "rentalOffice")
 	private RentalOffice rentalOffice;
-	
+
+	@Column(name = "milageInKm")
 	private int mileageInKm;
+
+	public Car(String registrationNr, String brand, String model, String color, RentalGroup group, boolean available, RentalOffice rentalOffice, int mileageInKm) {
+		this.registrationNr = registrationNr;
+		this.brand = brand;
+		this.model = model;
+		this.color = color;
+		this.group = group;
+		this.available = available;
+		this.rentalOffice = rentalOffice;
+		this.mileageInKm = mileageInKm;
+	}
 
 	public Car(String registrationNr, String brand, String model, String color, RentalGroup group, boolean available) {
 		this.registrationNr = registrationNr;
@@ -45,7 +58,15 @@ public class Car {
 	public Car() {
 
 	}
-	
+
+	public RentalOffice getRentalOffice() {
+		return rentalOffice;
+	}
+
+	public void setRentalOffice(RentalOffice rentalOffice) {
+		this.rentalOffice = rentalOffice;
+	}
+
 	public int getMileageInKm() {
 		return mileageInKm;
 	}

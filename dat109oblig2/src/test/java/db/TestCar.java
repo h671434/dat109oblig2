@@ -2,49 +2,52 @@ package db;
 
 import no.hvl.dao.CarDAO;
 import no.hvl.entities.Car;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class TestCar {
 
     private Car car1;
-    private Car car2;
-    private Car car3;
     private CarDAO carDao;
 
 
     @BeforeEach
     void setUp(){
-/*        StaticTestObjs staticTestObjs = new StaticTestObjs();
-        car1 = StaticTestObjs.cars.get(0);
-        car1 = StaticTestObjs.cars.get(1);
-        car1 = StaticTestObjs.cars.get(2);
-        StaticTestObjs.cars.get(5);
-        */
+        car1 = StaticTestObjs.cars.getFirst();
         carDao = new CarDAO();
     }
 
 
 
     @Test
-    void testSave(){
-        //Car car = StaticTestObjs.cars.getFirst();
-        //carDao.writeEntity(car);
-        //System.out.println(StaticTestObjs.adresses);
-        //carDao.writeEntity(car1);
+    void testSaveAndLoad(){
+        carDao.writeEntity(car1);
+        Car retrievedCar = carDao.getById(car1.getRegistrationNr());
+        assertNotNull(retrievedCar);
+        assertEquals(car1, retrievedCar);
+        carDao.deleteEntity(car1);
     }
 
     @Test
-    void testLoad(){
-
+    void testLoadList(){
+        carDao.writeEntity(car1);
+        List<Car> response = carDao.getAll();
+        assertNotNull(response);
+        Car carFromList = response.stream().filter(c -> c.equals(car1)).toList().getFirst();
+        assertEquals(car1, carFromList);
+        carDao.deleteEntity(car1);
     }
 
-    @AfterAll
+    @AfterEach
     void removeTestEntities(){
-        carDao.deleteAllEntities();
+
+        //carDao.deleteEntity(car1);
+
     }
 
 

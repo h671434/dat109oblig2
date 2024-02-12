@@ -1,9 +1,6 @@
 package no.hvl.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 
 
@@ -26,10 +23,17 @@ public abstract class AbstractDAO<T> {
             entityManager.getTransaction().begin();
             entityManager.persist(entity);
             entityManager.getTransaction().commit();
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();
         } finally {
             entityManager.close();
         }
     }
+
+    /**
+     *
+     * @return entity class (reffered to as T in this context)
+     */
 
     protected abstract Class<T> getEntityClass();
 
@@ -40,11 +44,15 @@ public abstract class AbstractDAO<T> {
      */
     public T getById(String id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        T entity;
         try {
-            return entityManager.find(getEntityClass(), id);
+            entity = entityManager.find(getEntityClass(), id);
+        } catch(EntityNotFoundException e){
+            entity = null;
         } finally {
             entityManager.close();
         }
+        return entity;
     }
 
     /**
@@ -73,7 +81,8 @@ public abstract class AbstractDAO<T> {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            entityManager.remove(entity);
+            T managedEntity = entityManager.merge(entity);
+            entityManager.remove(managedEntity);
             entityManager.getTransaction().commit();
         } finally {
             entityManager.close();
@@ -95,6 +104,7 @@ public abstract class AbstractDAO<T> {
             entityManager.close();
         }
     }
+
 
     /**
      * Deletes all entities of the given type from the database.
@@ -120,6 +130,18 @@ public abstract class AbstractDAO<T> {
         try {
             entityManager.getTransaction().begin();
             entities.forEach(entityManager::merge);
+            entityManager.getTransaction().commit();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+
+    public void mergeEntity(T entity){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
             entityManager.getTransaction().commit();
         } finally {
             entityManager.close();

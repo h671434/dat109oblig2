@@ -16,12 +16,12 @@ public abstract class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "costumerPhone", referencedColumnName = "phone")
     private Costumer costumer;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "registrationNr", referencedColumnName = "registrationNr")
     private Car car;
 

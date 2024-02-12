@@ -3,10 +3,7 @@ package db;
 
 import no.hvl.dao.AddressDAO;
 import no.hvl.entities.Address;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class TestAdress {
@@ -25,6 +22,10 @@ public class TestAdress {
     @Test
     void testWrite(){
         addressDao.writeEntity(testAddress);
+        Address response = addressDao.getById(testAddress.getStreetAddress());
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(testAddress, response);
+        addressDao.deleteEntity(response);
     }
 
 

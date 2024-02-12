@@ -1,3 +1,5 @@
+package db;
+
 import no.hvl.entities.Address;
 import no.hvl.entities.Car;
 import no.hvl.entities.Costumer;

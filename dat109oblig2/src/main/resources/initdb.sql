@@ -8,7 +8,7 @@ SET search_path TO dat109_oblig2;
 -- Create the Address table
 CREATE TABLE address (
     streetAddress VARCHAR(55) PRIMARY KEY,
-    postcode CHAR(4),
+    postcode CHAR(5),
     postalArea VARCHAR(55)
 );
 
@@ -42,6 +42,7 @@ CREATE TABLE car (
     color VARCHAR(30),
     groupCar VARCHAR(30),
     available BOOLEAN,
+    milageInKm Integer,
     rentalOffice CHAR(8) REFERENCES rentalOffice(phone)
 );
 
@@ -77,6 +78,44 @@ CREATE TABLE finishedOrder (
 );
 
 
--- Add other constraints or indexes as needed
+-- Insert data into the Address table
+INSERT INTO address (streetAddress, postcode, postalArea) VALUES
+    ('Street1', '1234', 'City1'),
+    ('Street2', '5678', 'City2'),
+    ('Street3', '91011', 'City3');
 
+-- Insert data into the Costumer table
+INSERT INTO costumer (firstName, lastName, address, phone) VALUES
+    ('John', 'Doe', 'Street1', '12345678'),
+    ('Jane', 'Doe', 'Street2', '23456789'),
+    ('Bob', 'Smith', 'Street3', '34567890');
 
+-- Insert data into the RentalCompany table
+INSERT INTO rentalCompany (name, phone, companyAddress) VALUES
+    ('Company1', '123456789', 'Street1'),
+    ('Company2', '987654321', 'Street2'),
+    ('Company3', '111223344', 'Street3');
+
+-- Insert data into the RentalOffice table
+INSERT INTO rentalOffice (address, phone, rentalCompany) VALUES
+    ('Street1', '12345678', 'Company1'),
+    ('Street2', '23456789', 'Company2'),
+    ('Street3', '34567890', 'Company3');
+
+-- Insert data into the Car table
+INSERT INTO car (registrationNr, brand, model, color, groupCar, available, rentalOffice) VALUES
+    ('ABC123', 'Toyota', 'Corolla', 'Blue', 'GroupA', true, '12345678'),
+    ('XYZ789', 'Honda', 'Civic', 'Red', 'GroupB', true, '23456789'),
+    ('DEF456', 'Ford', 'Focus', 'Green', 'GroupC', true, '34567890');
+
+-- Insert data into the activeOrder table
+INSERT INTO activeOrder (costumerPhone, carRegistrationNr, pickupTime, expectedReturnTime) VALUES
+    ('12345678', 'ABC123', '2024-02-09', '2024-02-10'),
+    ('23456789', 'XYZ789', '2024-02-10', '2024-02-11'),
+    ('34567890', 'DEF456', '2024-02-11', '2024-02-12');
+
+-- Insert data into the finishedOrder table
+INSERT INTO finishedOrder (costumerPhone, carRegistrationNr, pickupTime, expectedReturnTime, returnTime, returnMilageInKm, price) VALUES
+    ('12345678', 'ABC123', '2024-02-09', '2024-02-10', '2024-02-10', 100, 200),
+    ('23456789', 'XYZ789', '2024-02-10', '2024-02-11', '2024-02-11', 150, 250),
+    ('34567890', 'DEF456', '2024-02-11', '2024-02-12', '2024-02-12', 200, 300);

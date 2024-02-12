@@ -20,7 +20,7 @@ public class RentalCompany {
 	@JoinColumn(name = "address", referencedColumnName = "streetAddress")
 	private Address companyAddress;
 
-	@OneToMany(mappedBy = "rentalCompany")
+	@OneToMany(mappedBy = "rentalCompany", fetch = FetchType.EAGER)
 	private List<RentalOffice> officeList;
 	
 	public RentalCompany(String name, String phone, Address companyAddress) {
