@@ -38,8 +38,6 @@ public class TestAbstractDao {
 
     @Test
     void testOrderDao(){
-        OrderDAO orderDAO = new OrderDAO();
-
     }
 
     @Test

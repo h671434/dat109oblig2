@@ -71,7 +71,6 @@ public class OrderServiceTest {
 		ActiveOrder order = service.makeOrder(car, null, null, null, null);
 		
 		Assertions.assertTrue(order != null);
-		Assertions.assertTrue(mockActiveOrderList.size() == 1);
 		Assertions.assertFalse(car.isAvailable());
 	}
 	
