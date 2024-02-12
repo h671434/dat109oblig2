@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
 
 import no.hvl.dao.ActiveOrderDAO;
 import no.hvl.dao.CarDAO;
@@ -73,16 +75,20 @@ public class OrderServiceTest {
 		List<ActiveOrder> mockActiveOrderList = new ArrayList<>();
 		List<FinishedOrder> mockFinishedOrderList = new ArrayList<>();
 		
-		Mockito.doAnswer(i -> mockActiveOrderList.remove((ActiveOrder) i))
-				.when(mockActiveOrderDao).deleteEntity(Mockito.any(ActiveOrder.class));
-		Mockito.doAnswer(i -> mockFinishedOrderList.add((FinishedOrder) i))
-				.when(mockFinishedOrderDao).writeEntity(Mockito.any(FinishedOrder.class));
-		
 		Car car = new Car("1", null, null, null, null, false, null, 0);
 		ActiveOrder activeorder = new ActiveOrder();
 		
 		activeorder.setCar(car);
 		mockActiveOrderList.add(activeorder);
+		
+		Mockito.doAnswer(i -> mockActiveOrderList.remove((ActiveOrder) i))
+				.when(mockActiveOrderDao).deleteEntity(Mockito.any(ActiveOrder.class));
+		Mockito.doAnswer(i -> mockFinishedOrderList.add((FinishedOrder) i))
+				.when(mockFinishedOrderDao).writeEntity(Mockito.any(FinishedOrder.class));
+		Mockito.when(mockCarDao.getById(Mockito.anyString()))
+			.then(i -> car);
+		
+
 		
 		FinishedOrder finishedorder = service.finishOrder(activeorder, null, 0);
 		
