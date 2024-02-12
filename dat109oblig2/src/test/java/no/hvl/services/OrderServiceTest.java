@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
+import org.mockito.MockitoAnnotations;
 
 import no.hvl.dao.ActiveOrderDAO;
 import no.hvl.dao.CarDAO;
@@ -20,6 +20,7 @@ import no.hvl.entities.RentalOffice;
 import no.hvl.entities.order.ActiveOrder;
 import no.hvl.entities.order.FinishedOrder;
 import no.hvl.services.OrderService;
+
 
 public class OrderServiceTest {
 	
@@ -37,6 +38,8 @@ public class OrderServiceTest {
 	
 	@Test
 	public void getAvailableCarsTest() {
+		MockitoAnnotations.openMocks(this);
+		
 		OrderService service = new OrderService();
 		RentalOffice office = new RentalOffice(null, null, List.of(
 				new Car("1", null, null, null, null, true, null, 0),
@@ -57,6 +60,8 @@ public class OrderServiceTest {
 	
 	@Test
 	public void makeOrderTest() {
+		MockitoAnnotations.openMocks(this);
+		
 		List<ActiveOrder> mockActiveOrderList = new ArrayList<>();
 		
 		Mockito.doAnswer(i -> mockActiveOrderList.add((ActiveOrder) i))
@@ -72,6 +77,8 @@ public class OrderServiceTest {
 	
 	@Test
 	public void finishOrderTest() {
+		MockitoAnnotations.openMocks(this);
+		
 		List<ActiveOrder> mockActiveOrderList = new ArrayList<>();
 		List<FinishedOrder> mockFinishedOrderList = new ArrayList<>();
 		
@@ -87,8 +94,6 @@ public class OrderServiceTest {
 				.when(mockFinishedOrderDao).writeEntity(Mockito.any(FinishedOrder.class));
 		Mockito.when(mockCarDao.getById(Mockito.anyString()))
 			.then(i -> car);
-		
-
 		
 		FinishedOrder finishedorder = service.finishOrder(activeorder, null, 0);
 		
