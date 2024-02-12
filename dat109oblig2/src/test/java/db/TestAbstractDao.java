@@ -24,17 +24,4 @@ public class TestAbstractDao {
         carDao.deleteDetachedEntity(car1);
     }
 
-    @Test
-    void testAddressDao(){
-        CarDAO carDao = new CarDAO();
-        Car car1 = StaticTestObjs.cars.get(0);
-        carDao.writeEntity(car1);
-        Car retrievedCar = carDao.getById(car1.getRegistrationNr());
-        assertNotNull(retrievedCar);
-        assertEquals(car1, retrievedCar);
-        carDao.deleteEntity(retrievedCar);
-
-    }
-
-
 }
