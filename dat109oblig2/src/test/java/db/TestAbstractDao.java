@@ -36,20 +36,5 @@ public class TestAbstractDao {
 
     }
 
-    @Test
-    void testOrderDao(){
-    }
-
-    @Test
-    void testRentalGroupDao(){
-
-    }
-
-    @Test
-    void testRentalCompanyDao(){
-
-    }
-
-
 
 }
