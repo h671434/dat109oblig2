@@ -62,10 +62,4 @@ public class FinishedOrder extends Order {
         this.returnMileageInKm = returnMileageInKm;
     }
 
-
-    public Integer calculatePrice(){
-        return 0;
-    }
-
-
 }

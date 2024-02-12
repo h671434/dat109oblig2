@@ -5,9 +5,6 @@ import no.hvl.services.OrderService;
 
 public class OrderServiceTest {
 	
-	@InjectMocks
-	private OrderService service;
-	
 	@Mock
 	private ActiveOrderDAO mockActiveOrderDao;
 	
@@ -15,7 +12,10 @@ public class OrderServiceTest {
 	private FinishedOrderDAO mockFinishedOrderDao;
 	
 	@Mock
-	private CarDAO mockCarDao:
+	private CarDAO mockCarDao;
+		
+	@InjectMocks
+	private OrderService service;
 	
 	@Test
 	public void getAvailableCarsTest() {
@@ -33,17 +33,47 @@ public class OrderServiceTest {
 		
 		List<Car> available = service.getAvailableCars(office, office, now, days);
 		
-		assertTrue(available)
+		Assertions.assertTrue(available.stream().allMatch(c -> c.isAvailable()));
+		Assertions.assertTrue(available.size() == 5);
 	}
 	
 	@Test
 	public void makeOrderTest() {
+		List<ActiveOrder> mockActiveOrderList = new ArrayList<>();
 		
+		Mockito.when(mockActiveOrder.writeEntity(Mockito.any()))
+				.then(i -> mockActiveOrderList.add(i));
+		
+		Car car = new Car("1", null, null, null, null, true, null, 0);
+		ActiveOrder order = service.makeOrder(car, null, null, null, null);
+		
+		Assertions.assertTrue(order != null);
+		Assertions.assertTrue(mockActiveOrderList.size() == 1);
+		Assertions.assertFalse(car.isAvailable());
 	}
 	
 	@Test
 	public void finishOrderTest() {
+		List<ActiveOrder> mockActiveOrderList = new ArrayList<>();
+		List<ActiveOrder> mockFinishedOrderList = new ArrayList<>();
 		
+		Mockito.when(mockActiveOrder.deleteEntity(Mockito.any()))
+				.then(i -> mockActiveOrderList.remove(i));
+		Mockito.when(mockFinishedOrder.writeEntity(Mockito.any()))
+				.then(i -> mockActiveOrderList.add(i));
+
+		
+		Car car = new Car("1", null, null, null, null, false, null, 0);
+		ActiveOrder activeorder = new ActiveOrder(car, null, null, null, null);
+		
+		mockActiveOrderList.add(activeorder);
+		
+		FinishedOrder finishedorder = service.finishOrder(activeorder, null, 0);
+		
+		Assertions.assertTrue(finishedorder != null);
+		Assertions.assertTrue(mockActiveOrderList.size() == 0);
+		Assertions.assertTrue(mockFinishedOrderList.size() == 1);
+		Assertions.assertTrue(car.isAvailable());
 	}
 	
 }
