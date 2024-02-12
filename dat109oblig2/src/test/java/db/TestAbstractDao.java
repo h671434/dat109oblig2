@@ -1,7 +1,7 @@
 package db;
 
 import no.hvl.dao.CarDAO;
-import no.hvl.dao.OrderDAO;
+import no.hvl.dao.ActiveOrderDAO;
 import no.hvl.entities.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

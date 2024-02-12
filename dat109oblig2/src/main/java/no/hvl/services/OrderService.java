@@ -1,32 +1,27 @@
 package no.hvl.services;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import no.hvl.dao.CarDAO;
-import no.hvl.dao.OrderDAO;
-import no.hvl.dao.RentalOfficeDAO;
+import no.hvl.dao.FinishedOrderDAO;
+import no.hvl.dao.ActiveOrderDAO;
 import no.hvl.entities.Car;
 import no.hvl.entities.Costumer;
 import no.hvl.entities.RentalOffice;
 import no.hvl.entities.order.ActiveOrder;
 import no.hvl.entities.order.FinishedOrder;
-import no.hvl.entities.order.Order;
 import no.hvl.entities.order.payment.Payment;
 
 public class OrderService {
 	
-	private OrderDAO orderDao;
+	private ActiveOrderDAO activeOrderDao;
+	private FinishedOrderDAO finishedOrderDao;
 	private CarDAO carDao;
 	
 	public OrderService() {
-		this.orderDao = new OrderDAO();
+		this.activeOrderDao = new ActiveOrderDAO();
+		this.finishedOrderDao = new FinishedOrderDAO();
 		this.carDao = new CarDAO();
 	}
 	
@@ -53,7 +48,7 @@ public class OrderService {
 		
 		car.setAvailable(false);
 		
-		orderDao.writeEntity(order);
+		activeOrderDao.writeEntity(order);
 		
 		return order;
 	}
@@ -61,8 +56,8 @@ public class OrderService {
 	public FinishedOrder finishOrder(ActiveOrder active, Date returnTime, int returnMileage) {
 		FinishedOrder finished = active.changeStatusToFinished(returnTime, returnMileage);
 		
-		orderDao.deleteEntity(active);
-		orderDao.writeEntity(finished);
+		activeOrderDao.deleteEntity(active);
+		finishedOrderDao.writeEntity(finished);
 		
 		carDao.getById(active.getCar().getRegistrationNr()).setAvailable(true);
 		
