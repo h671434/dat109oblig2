@@ -1,6 +1,22 @@
-import java.time.LocalDate;
+package no.hvl.services;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+
+import no.hvl.dao.ActiveOrderDAO;
+import no.hvl.dao.CarDAO;
+import no.hvl.dao.FinishedOrderDAO;
+import no.hvl.entities.Car;
+import no.hvl.entities.RentalOffice;
+import no.hvl.entities.order.ActiveOrder;
+import no.hvl.entities.order.FinishedOrder;
 import no.hvl.services.OrderService;
 
 public class OrderServiceTest {
@@ -28,7 +44,7 @@ public class OrderServiceTest {
 				new Car("5", null, null, null, null, true, null, 0),
 				new Car("6", null, null, null, null, false, null, 0),
 				new Car("7", null, null, null, null, false, null, 0)));
-		Date now = LocalDate.now();
+		Date now = new Date();
 		int days = 5;
 		
 		List<Car> available = service.getAvailableCars(office, office, now, days);
@@ -41,9 +57,9 @@ public class OrderServiceTest {
 	public void makeOrderTest() {
 		List<ActiveOrder> mockActiveOrderList = new ArrayList<>();
 		
-		Mockito.when(mockActiveOrder.writeEntity(Mockito.any()))
-				.then(i -> mockActiveOrderList.add(i));
-		
+		Mockito.doAnswer(i -> mockActiveOrderList.add((ActiveOrder) i))
+				.when(mockActiveOrderDao).writeEntity(Mockito.any(ActiveOrder.class));
+
 		Car car = new Car("1", null, null, null, null, true, null, 0);
 		ActiveOrder order = service.makeOrder(car, null, null, null, null);
 		
@@ -55,17 +71,17 @@ public class OrderServiceTest {
 	@Test
 	public void finishOrderTest() {
 		List<ActiveOrder> mockActiveOrderList = new ArrayList<>();
-		List<ActiveOrder> mockFinishedOrderList = new ArrayList<>();
+		List<FinishedOrder> mockFinishedOrderList = new ArrayList<>();
 		
-		Mockito.when(mockActiveOrder.deleteEntity(Mockito.any()))
-				.then(i -> mockActiveOrderList.remove(i));
-		Mockito.when(mockFinishedOrder.writeEntity(Mockito.any()))
-				.then(i -> mockActiveOrderList.add(i));
-
+		Mockito.doAnswer(i -> mockActiveOrderList.remove((ActiveOrder) i))
+				.when(mockActiveOrderDao).deleteEntity(Mockito.any(ActiveOrder.class));
+		Mockito.doAnswer(i -> mockFinishedOrderList.add((FinishedOrder) i))
+				.when(mockFinishedOrderDao).writeEntity(Mockito.any(FinishedOrder.class));
 		
 		Car car = new Car("1", null, null, null, null, false, null, 0);
-		ActiveOrder activeorder = new ActiveOrder(car, null, null, null, null);
+		ActiveOrder activeorder = new ActiveOrder();
 		
+		activeorder.setCar(car);
 		mockActiveOrderList.add(activeorder);
 		
 		FinishedOrder finishedorder = service.finishOrder(activeorder, null, 0);
