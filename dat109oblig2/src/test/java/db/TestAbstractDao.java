@@ -21,7 +21,7 @@ public class TestAbstractDao {
         Car retrievedCar = carDao.getById(car1.getRegistrationNr());
         assertNotNull(retrievedCar);
         assertEquals(car1, retrievedCar);
-        carDao.deleteEntity(car1);
+        carDao.deleteDetachedEntity(car1);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class TestAbstractDao {
         Car retrievedCar = carDao.getById(car1.getRegistrationNr());
         assertNotNull(retrievedCar);
         assertEquals(car1, retrievedCar);
-        carDao.deleteEntity(car1);
+        carDao.deleteEntity(retrievedCar);
 
     }
 

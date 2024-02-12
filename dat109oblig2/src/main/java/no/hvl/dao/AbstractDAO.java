@@ -81,6 +81,23 @@ public abstract class AbstractDAO<T> {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
+            entityManager.remove(entity);
+            entityManager.getTransaction().commit();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+
+    /**
+     * Deletes an entity from the database, but it is detached
+     *
+     * @param entity Entity to be deleted.
+     */
+    public void deleteDetachedEntity(T entity) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
             T managedEntity = entityManager.merge(entity);
             entityManager.remove(managedEntity);
             entityManager.getTransaction().commit();
@@ -88,6 +105,7 @@ public abstract class AbstractDAO<T> {
             entityManager.close();
         }
     }
+
 
     /**
      * Saves a list of entities to the database.

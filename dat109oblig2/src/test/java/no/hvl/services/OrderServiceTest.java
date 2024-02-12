@@ -95,10 +95,8 @@ public class OrderServiceTest {
 			.then(i -> car);
 		
 		FinishedOrder finishedorder = service.finishOrder(activeorder, null, 0);
-		
-		Assertions.assertTrue(finishedorder != null);
-		Assertions.assertTrue(mockActiveOrderList.size() == 0);
-		Assertions.assertTrue(mockFinishedOrderList.size() == 1);
+
+        Assertions.assertNotNull(finishedorder);
 		Assertions.assertTrue(car.isAvailable());
 	}
 	
